@@ -7,11 +7,25 @@
 
 #pragma once
 
+void initTachometer();
 
 class TachometerModule : public EngineModule {
 public:
-    void init();
-    void onFastCallback() override;
+	// TODO: can/should this be slow callback instead?
+	void onFastCallback() override;
+	void onIgnitionStateChanged(bool ignitionOn) override;
+
 private:
-    bool tachHasInit;
+	float getRpm();
+
+	bool m_doTachSweep = false;
+
+	enum class TachState {
+		Normal,
+		RampUp,
+		RampDown,
+	};
+
+	TachState m_state = TachState::Normal;
+	Timer m_stateChangeTimer;
 };

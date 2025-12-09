@@ -485,7 +485,7 @@ void commonInitEngineController() {
 #endif /* EFI_AUX_VALVES */
 
 #ifdef MODULE_TACHOMETER
-	engine->module<TachometerModule>()->init();
+	initTachometer();
 #endif
 
 	initSpeedometer();
